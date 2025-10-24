@@ -1,0 +1,4 @@
+CREATE TABLE appointments (
+id BIGSERIAL PRIMARY KEY,patient_id BIGINT NOT NULL,doctor_id BIGINT NOT NULL,appointment_date TIMESTAMP NOT NULL,status VARCHAR(15) NOT NULL CHECK(status IN('SCHEDULED','COMPLETED','CANCELLED','IN_PROGRESS')),
+FOREIGN KEY (patient_id) REFERENCES patients(id),FOREIGN KEY (doctor_id) REFERENCES doctors(id)
+);
