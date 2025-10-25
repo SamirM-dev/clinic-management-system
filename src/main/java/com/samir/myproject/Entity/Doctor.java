@@ -2,6 +2,9 @@ package com.samir.myproject.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "doctors") public class Doctor {
     //Поля
@@ -10,6 +13,7 @@ import jakarta.persistence.*;
     private String specialization;
     private String phone;
     private String email;
+    @OneToMany(mappedBy = "doctor") private List<Appointment> listOfAppointments=new ArrayList<>();
 
     //Конструкторы
     public Doctor(){}
@@ -33,6 +37,21 @@ import jakarta.persistence.*;
     public void setEmail(String email){
         this.email=email;
     }
+    protected void addAppointment(Appointment appointment){
+        if(listOfAppointments.contains(appointment)){
+            System.out.println("ОШИБКА...Эта встреча уже назначена!");
+            return;
+        }
+        listOfAppointments.add(appointment);
+    }
+    protected void deleteAppointment(Appointment appointment){
+        if (!listOfAppointments.contains(appointment)){
+            System.out.println("ОШИБКА...Такой приём не был назначен!");
+            return;
+        }
+        listOfAppointments.remove(appointment);
+    }
+
 
     //Геттеры
     public long getId(){return id;}
@@ -40,4 +59,8 @@ import jakarta.persistence.*;
     public String getSpecialization(){return specialization;}
     public String getPhone(){return phone;}
     public String getEmail(){return email;}
+    public List<Appointment> getListOfAppointments(){
+        if(listOfAppointments.isEmpty()) return List.of();
+        return listOfAppointments;
+    }
 }
