@@ -10,13 +10,13 @@ import java.util.List;
 @Table(name = "patients")
 public class Patient {
     //Поля
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String name;
     private String phone;
     private String email;
     @Column(name = "date_of_birth") private LocalDate dateOfBirth;
     @OneToMany(mappedBy = "patient") private List<Appointment> listOfAppointments=new ArrayList<>();
-    @OneToOne(mappedBy = "patient") private MedicalRecord medicalRecord;
+    @OneToMany(mappedBy = "patient") private List<MedicalRecord> medicalRecords=new ArrayList<>();
 
     //Конструкторы
     public Patient(){}
@@ -58,7 +58,20 @@ public class Patient {
         }
         listOfAppointments.remove(appointment);
     }
-    protected void setMedicalRecord(MedicalRecord medicalRecord){this.medicalRecord=medicalRecord;}
+    protected void addMedicalRecord(MedicalRecord medicalRecord){
+        if(medicalRecords.contains(medicalRecord)){
+            System.out.println("ОШИБКА...Такая запись уже имеется!");
+            return;
+        }
+        medicalRecords.add(medicalRecord);
+    }
+    protected void deleteMedicalRecord(MedicalRecord medicalRecord){
+        if(!medicalRecords.contains(medicalRecord)){
+            System.out.println("ОШИБКА...Такой записи не существует!");
+            return;
+        }
+        medicalRecords.remove(medicalRecord);
+    }
 
     //Геттеры
     public long getId(){return id;}
@@ -70,5 +83,5 @@ public class Patient {
         if(listOfAppointments.isEmpty()) return List.of();
         return listOfAppointments;
     }
-    public MedicalRecord getMedicalRecord(){return medicalRecord;}
+    public List<MedicalRecord> getMedicalRecord(){return medicalRecords;}
 }

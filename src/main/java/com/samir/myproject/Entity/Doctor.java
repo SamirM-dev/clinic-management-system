@@ -8,12 +8,12 @@ import java.util.List;
 @Entity
 @Table(name = "doctors") public class Doctor {
     //Поля
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String name;
     private String specialization;
     private String phone;
     private String email;
-    @OneToMany(mappedBy = "doctor") private List<Appointment> listOfAppointments=new ArrayList<>();
+    @OneToMany(mappedBy = "doctor") private List<Appointment> appointments=new ArrayList<>();
 
     //Конструкторы
     public Doctor(){}
@@ -38,18 +38,18 @@ import java.util.List;
         this.email=email;
     }
     protected void addAppointment(Appointment appointment){
-        if(listOfAppointments.contains(appointment)){
+        if(appointments.contains(appointment)){
             System.out.println("ОШИБКА...Эта встреча уже назначена!");
             return;
         }
-        listOfAppointments.add(appointment);
+        appointments.add(appointment);
     }
     protected void deleteAppointment(Appointment appointment){
-        if (!listOfAppointments.contains(appointment)){
+        if (!appointments.contains(appointment)){
             System.out.println("ОШИБКА...Такой приём не был назначен!");
             return;
         }
-        listOfAppointments.remove(appointment);
+        appointments.remove(appointment);
     }
 
 
@@ -60,7 +60,7 @@ import java.util.List;
     public String getPhone(){return phone;}
     public String getEmail(){return email;}
     public List<Appointment> getListOfAppointments(){
-        if(listOfAppointments.isEmpty()) return List.of();
-        return listOfAppointments;
+        if(appointments.isEmpty()) return List.of();
+        return appointments;
     }
 }

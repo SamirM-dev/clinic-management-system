@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Table(name = "medical_records")
 public class MedicalRecord {
     //Поля
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private long id;
-    @OneToOne @JoinColumn(name = "patient_id",unique = true) private Patient patient;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+    @ManyToOne @JoinColumn(name = "patient_id") private Patient patient;
     private String diagnosis;
     private String treatment;
     @Column(name = "record_date") LocalDateTime recordDate;
@@ -18,14 +18,14 @@ public class MedicalRecord {
     public MedicalRecord(){}
     public MedicalRecord(Patient patient,String diagnosis){
         this.patient=patient;
-        patient.setMedicalRecord(this);
+        patient.addMedicalRecord(this);
         this.diagnosis=diagnosis;
         treatment="Лечение не требуется, пациент здоров!";
         recordDate=LocalDateTime.now();
     }
     public MedicalRecord(Patient patient,String diagnosis,String treatment){
         this.patient=patient;
-        patient.setMedicalRecord(this);
+        patient.addMedicalRecord(this);
         this.diagnosis=diagnosis;
         this.treatment=treatment;
         recordDate=LocalDateTime.now();
