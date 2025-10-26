@@ -66,5 +66,5 @@ import java.util.Optional;
         }
         appointmentRepository.deleteById(appointmentId);
         return true;
-    }
+    }//изменить на статус CANCEL
 }
