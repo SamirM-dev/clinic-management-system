@@ -21,12 +21,18 @@ public class Patient {
     //Конструкторы
     public Patient(){}
     public Patient(String name,String phone,String email,LocalDate dateOfBirth){
+        if (name==null || phone == null || email == null || dateOfBirth==null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         this.name=name;
         this.phone=phone;
         this.email=email;
         this.dateOfBirth=dateOfBirth;
     }
     public Patient(String name,String phone,LocalDate dateOfBirth){
+        if (name==null || phone == null || dateOfBirth==null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         this.name=name;
         this.phone=phone;
         this.dateOfBirth=dateOfBirth;

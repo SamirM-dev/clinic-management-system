@@ -3,7 +3,7 @@ package com.samir.myproject.Services;
 import com.samir.myproject.Components.ClinicManagementSystemUtil;
 import com.samir.myproject.Entity.Appointment;
 import com.samir.myproject.Repositories.AppointmentRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

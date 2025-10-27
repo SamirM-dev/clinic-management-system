@@ -20,6 +20,9 @@ public class Appointment {
     //Конструкторы
     public Appointment(){}
     public Appointment(Patient patient,Doctor doctor,LocalDateTime appointmentDate,String status){
+        if (patient==null || doctor == null || appointmentDate == null || status==null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         if (!VALID_STATUSES.contains(status)){
             throw new IllegalArgumentException("Неверный статус приёма: "+status);
         }

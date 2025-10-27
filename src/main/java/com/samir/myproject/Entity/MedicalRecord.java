@@ -17,6 +17,9 @@ public class MedicalRecord {
     //Конструкторы
     public MedicalRecord(){}
     public MedicalRecord(Patient patient,String diagnosis){
+        if (patient==null || diagnosis == null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         this.patient=patient;
         patient.addMedicalRecord(this);
         this.diagnosis=diagnosis;
@@ -24,6 +27,9 @@ public class MedicalRecord {
         recordDate=LocalDateTime.now();
     }
     public MedicalRecord(Patient patient,String diagnosis,String treatment){
+        if (patient==null || diagnosis == null || treatment==null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         this.patient=patient;
         patient.addMedicalRecord(this);
         this.diagnosis=diagnosis;

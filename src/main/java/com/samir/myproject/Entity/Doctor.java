@@ -18,6 +18,9 @@ import java.util.List;
     //Конструкторы
     public Doctor(){}
     public Doctor(String name,String specialization,String phone,String email){
+        if (name==null || phone == null || email == null || specialization==null){
+            throw  new IllegalArgumentException("Не корректные данные!");
+        }
         this.name=name;
         this.specialization=specialization;
         this.phone=phone;

@@ -2,7 +2,7 @@ package com.samir.myproject.Services;
 
 import com.samir.myproject.Entity.Doctor;
 import com.samir.myproject.Repositories.DoctorRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
