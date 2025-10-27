@@ -1,4 +1,4 @@
-package com.samir.myproject.Components;
+package com.samir.myproject.Utils;
 
 import org.springframework.stereotype.Component;
 

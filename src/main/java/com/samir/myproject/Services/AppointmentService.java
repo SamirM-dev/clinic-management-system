@@ -1,6 +1,6 @@
 package com.samir.myproject.Services;
 
-import com.samir.myproject.Components.ClinicManagementSystemUtil;
+import com.samir.myproject.Utils.ClinicManagementSystemUtil;
 import com.samir.myproject.Entity.Appointment;
 import com.samir.myproject.Repositories.AppointmentRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,12 +38,15 @@ import java.util.Optional;
         appointment.changeStatus(newStatus);
         return appointmentRepository.save(appointment);
     }
-//    public List<Appointment> getAppointmentsByDoctorAndDate(Long doctorId, LocalDateTime date){
-//        if (doctorId<=0){
-//            throw new IllegalArgumentException("Айди должен быть положительным!");
-//        }
-//        return appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId,date);
-//    } //переделать
+    public List<Appointment> getAppointmentsByDoctorAndDate(Long doctorId, LocalDate date){
+        if (doctorId<=0){
+            throw new IllegalArgumentException("Айди должен быть положительным!");
+        }
+        LocalDateTime startDate = date.atStartOfDay();
+        LocalDateTime endDate = date.plusDays(1).atStartOfDay();
+        return appointmentRepository.findByDoctorIdAndDate(doctorId,startDate,endDate);
+
+    }
     public List<Appointment> getAppointmentsByPatient(Long patientId){
         if (patientId<=0){
             throw new IllegalArgumentException("Айди должен быть положительным!");
@@ -64,7 +67,8 @@ import java.util.Optional;
         if(optionalAppointment.isEmpty()){
             throw new IllegalArgumentException("Такого приёма не было");
         }
-        appointmentRepository.deleteById(appointmentId);
+        Appointment appointment = optionalAppointment.get();
+        appointment.changeStatus("CANCELLED");
         return true;
-    }//изменить на статус CANCEL
+    }
 }
